@@ -2,6 +2,7 @@ module Bugsnag
   class Rack
     def initialize(app)
       @app = app
+      Bugsnag.configuration.release_stage = ENV['RACK_ENV'] if ENV['RACK_ENV']
       if Bugsnag.configuration.project_root.nil? || Bugsnag.configuration.project_root.empty?
         if defined?(settings)
           Bugsnag.configuration.project_root = settings.root
